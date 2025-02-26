@@ -1,6 +1,6 @@
 # Docker Volume Dirty Backup & Restore (DVDBR)
 
-<p align="left">
+<p align="center">
   <img src="https://raw.githubusercontent.com/RipleyBooya/DVDBR/refs/heads/main/DVDBR.webp" alt="SSH Tunnel Logo" width="200"/>
 </p>
 
