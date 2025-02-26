@@ -102,12 +102,19 @@ for VOLUME in $SELECTED_VOLUMES; do
     BACKUP_FILE="$VOLUME.tar.gz"
     [[ "$INCLUDE_TIMESTAMP" =~ ^[Yy]$ ]] && BACKUP_FILE="${VOLUME}_${TIMESTAMP}.tar.gz"
 
-    log "Streaming $VOLUME backup directly to remote server via ssh cat"
-    if ! $SUDO_CMD docker run --rm -v $VOLUME:/data:ro alpine sh -c "tar czf - -C /data ." | ssh -i "$SSH_KEY" "$SSH_USER@$SSH_HOST" "cat > $REMOTE_PATH/$BACKUP_FILE"; then
-        log "⚠️ ssh cat failed, trying rsync..."
-        if ! rsync -avz -e "ssh -i $SSH_KEY" "$LOCAL_PATH/$BACKUP_FILE" "$SSH_USER@$SSH_HOST:$REMOTE_PATH/"; then
-            log "⚠️ rsync failed, trying SCP..."
-            scp -i "$SSH_KEY" "$LOCAL_PATH/$BACKUP_FILE" "$SSH_USER@$SSH_HOST:$REMOTE_PATH/"
+    if [[ "$SAVE_LOCAL" =~ ^[Yy]$ ]]; then
+        log "Saving $VOLUME locally to $LOCAL_PATH/$BACKUP_FILE"
+        $SUDO_CMD docker run --rm -v $VOLUME:/data:ro -v "$LOCAL_PATH:/backup" alpine tar czf "/backup/$BACKUP_FILE" -C /data .
+    fi
+    
+    if [[ "$SAVE_REMOTE" =~ ^[Yy]$ ]]; then
+        log "Streaming $VOLUME backup directly to remote server via ssh cat"
+        if ! $SUDO_CMD docker run --rm -v $VOLUME:/data:ro alpine sh -c "tar czf - -C /data ." | ssh -i "$SSH_KEY" "$SSH_USER@$SSH_HOST" "cat > $REMOTE_PATH/$BACKUP_FILE"; then
+            log "⚠️ ssh cat failed, trying rsync..."
+            if ! rsync -avz -e "ssh -i $SSH_KEY" "$LOCAL_PATH/$BACKUP_FILE" "$SSH_USER@$SSH_HOST:$REMOTE_PATH/"; then
+                log "⚠️ rsync failed, trying SCP..."
+                scp -i "$SSH_KEY" "$LOCAL_PATH/$BACKUP_FILE" "$SSH_USER@$SSH_HOST:$REMOTE_PATH/"
+            fi
         fi
     fi
 
