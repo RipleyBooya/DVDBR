@@ -6,6 +6,10 @@
 
 ## 🚀 Quick Start
 
+Script:
+ - GitHub - [DVDBR.sh](https://raw.githubusercontent.com/RipleyBooya/DVDBR/refs/heads/main/DVDBR.sh "GitHub - RipleyBooya - DVDBR.sh")
+ - ltgs.wiki mirror (***may be not up to date***) - [DVDBR.sh](/files/infotech/virt/docker/dvdbr/dvdbr.sh "ltgs.wiki - DVDBR.sh")
+
 ```bash
 chmod +x DVDBR.sh
 ./DVDBR.sh
