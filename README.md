@@ -1,6 +1,6 @@
 # Docker Volume Dirty Backup & Restore (DVDBR)
 
-<p align="center">
+<p align="left">
   <img src="https://raw.githubusercontent.com/RipleyBooya/DVDBR/refs/heads/main/DVDBR.webp" alt="SSH Tunnel Logo" width="200"/>
 </p>
 
@@ -77,7 +77,7 @@ Refer to their respective licenses for details.
 
 ## 📜 License
 
-This project is licensed under the **MIT License** – free to use, modify, and distribute with attribution.
+This project is licensed under the **[MIT License](https://github.com/RipleyBooya/DVDBR/blob/main/LICENSE)** – free to use, modify, and distribute with attribution.
 
 ## 🤖 AI Assistance & Acknowledgment
 
